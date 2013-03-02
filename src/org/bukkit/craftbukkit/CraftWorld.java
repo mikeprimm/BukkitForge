@@ -310,15 +310,15 @@ public class CraftWorld implements World {
 			save = true;
 		}
 
-		chunk.entityLists = null; // Always remove entities - even if discarding, need to get them out of world table
+		//chunk.entityLists = null; // Always remove entities - even if discarding, need to get them out of world table
 
-		if (save && !(chunk instanceof EmptyChunk)) {
+		//if (save && !(chunk instanceof EmptyChunk)) {
 			world.theChunkProviderServer.unloadChunksIfNotNearSpawn(x, z);
-//			world.theChunkProviderServer.unload100OldestChunks();
+			world.theChunkProviderServer.unload100OldestChunks();
 			
 			//world.theChunkProviderServer.safeSaveChunk(chunk);
 			//world.theChunkProviderServer.saveChunkNOP(chunk);
-		}
+		//}
 
 //		world.theChunkProviderServer.chunksToUnload.remove(ChunkCoordIntPair.chunkXZ2Int(x,z));
 //		world.theChunkProviderServer.loadedChunks.remove(LongHash.toLong(x, z));
