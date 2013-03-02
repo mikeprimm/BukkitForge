@@ -205,7 +205,7 @@ public class CraftChunk implements Chunk {
 					blockids[j] = (short) (baseids[j] & 0xFF);
 				}
 
-				if (true) { /* If we've got extended IDs */
+				if (cs[i].getBlockMSBArray() != null) { /* If we've got extended IDs */
 					byte[] extids = cs[i].getBlockMSBArray().data;
 
 					for (int j = 0; j < 2048; j++) {
@@ -224,9 +224,13 @@ public class CraftChunk implements Chunk {
 
 				/* Get block data nibbles */
 				sectionBlockData[i] = new byte[2048];
-				System.arraycopy(cs[i].getBlockMSBArray().data, 0, sectionBlockData[i], 0, 2048); // Should be getData
-				sectionSkyLights[i] = new byte[2048];
-				System.arraycopy(cs[i].getSkylightArray().data, 0, sectionSkyLights[i], 0, 2048); // Should be getSkyLight
+				System.arraycopy(cs[i].getMetadataArray().data, 0, sectionBlockData[i], 0, 2048); // Should be getData
+                if (cs[i].getSkylightArray() == null) {
+                    sectionSkyLights[i] = emptyData;
+                } else {
+                    sectionSkyLights[i] = new byte[2048];
+                    System.arraycopy(cs[i].getSkylightArray().data, 0, sectionSkyLights[i], 0, 2048); // Should be getSkyLight
+                }
 				sectionEmitLights[i] = new byte[2048];
 				System.arraycopy(cs[i].getBlocklightArray().data, 0, sectionEmitLights[i], 0, 2048); // Should be getBlockLight
 			}
